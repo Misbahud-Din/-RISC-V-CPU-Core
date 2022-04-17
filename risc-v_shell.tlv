@@ -51,6 +51,31 @@
    // IMEM
    `READONLY_MEM($pc, $$instr[31:0])
    
+   // Instruction Type
+   
+   // U Type Instructions Opcode
+   $is_u_instr = $instr[6:2] ==? 5'b0x101;
+
+   // I Type Instructions Opcode
+   $is_i_inst = $instr[6:2] ==? 5'b0000x ||
+                $instr[6:2] ==? 5'b001x0 ||
+                $instr[6:2] ==? 5'b11001;
+
+   // R Type Instrcutions Opcode
+   $is_r_inst = $instr[6:2] ==? 5'b10100 ||
+                $instr[6:2] ==? 5'b01011 ||
+                $instr[6:2] ==? 5'b011x0;
+
+   // S Type Instrcutions Opcode
+   $is_s_inst = $instr[6:2] ==? 5'b0100x;
+
+   // B Type Instrcutions Opcode
+   $is_b_inst = $instr[6:2] ==? 5'b11000;
+
+   // J Type Instrcutions Opcode
+   $is_j_inst = $instr[6:2] ==? 5'b11011;
+
+   
    // Assert these to end simulation (before Makerchip cycle limit).
    *passed = 1'b0;
    *failed = *cyc_cnt > M4_MAX_CYC;
