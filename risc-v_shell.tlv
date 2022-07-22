@@ -163,6 +163,8 @@
                    $is_auipc   ?  $pc + $imm :
                    $is_jal     ?  $pc + 32'd4 :
                    $is_jalr    ?  $pc + 32'd4 :
+
+                   $is_load || $is_s_instr ? $src1_value + $imm:
                     32'b0;  // Default
 
    $wr_en = $rd_valid && ($rd != 5'b0);
