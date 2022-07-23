@@ -116,7 +116,6 @@
    $is_ori = $dec_bits ==? 11'bx_110_0010011;
    $is_or = $dec_bits ==? 11'b0_110_0110011;
    
-   
    // ALU
    
    // set less than immediate unsigned logic
