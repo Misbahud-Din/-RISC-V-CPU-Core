@@ -166,8 +166,6 @@
 
                    $is_load || $is_s_instr ? $src1_value + $imm:
                     32'b0;  // Default
-
-   $wr_en = $rd_valid && ($rd != 5'b0);
    
    // Branch Logic 
    $taken_br = $is_beq ? ($src1_value == $src2_value):
@@ -181,14 +179,14 @@
    
    // Unconditional Branch Logic
    $jalr_tgt_pc[31:0] = $src1_value + $imm;
-   
+
    // Assert these to end simulation (before Makerchip cycle limit).
    // *passed = 1'b0;
    m4+tb()
    *failed = *cyc_cnt > M4_MAX_CYC;
    
    // Register File mwm
-   m4+rf(32, 32, $reset, $wr_en, $rd, $result[31:0], $rs1_valid, $rs1[4:0], $src1_value, $rs2_valid, $rs2[4:0], $src2_value)
+   m4+rf(32, 32, $reset, ($rd_valid && ($rd != 5'b0)), $rd, ($is_load ? $ld_data : $result), $rs1_valid, $rs1[4:0], $src1_value, $rs2_valid, $rs2[4:0], $src2_value)
    m4+dmem(32, 32, $reset, $result[6:2], $is_s_instr, $src2_value, $is_load, $ld_data)
    m4+cpu_viz()
 \SV
